@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: splitsmart-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 2 --timeout 120
+    disk:
+      name: splitsmart-db
+      mountPath: /data
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_PATH
+        value: /data/splitwise.db
+      - key: JWT_SECRET
+        generateValue: true
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: GMAIL_USER
+        sync: false
+      - key: GMAIL_APP_PASSWORD
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false
