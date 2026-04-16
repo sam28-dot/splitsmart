@@ -36,9 +36,9 @@ def not_found(e):
     return send_from_directory(app.static_folder, 'index.html')
 
 # 4. Your health check for Render
-@app.route('/api/v1/health')
-def health():
-    return {"status": "ok", "mode": "sqlite"}, 200
+@app.get("/api/v1/health")
+def health_status(): # <--- Change this name
+    return {"otp_mode": "gmail_smtp", "status": "ok"}
 
 # Init DB at module level — runs under both gunicorn and python app.py
 init_db()
